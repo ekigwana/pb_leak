@@ -1,0 +1,28 @@
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+
+set(PROJECT_NAME pb_leak)
+
+project(${PROJECT_NAME})
+
+cmake_minimum_required(VERSION 3.7.2)
+
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall -Werror -std=c++11 -ggdb3")
+
+find_package(Protobuf REQUIRED)
+
+set(PROTOCOL_BUFFERS addressbook.proto)
+
+include_directories(${PROTOBUF_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR})
+
+set(PROJECT_SOURCES pb_leak.cc)
+
+protobuf_generate_cpp (PROTO_SRCS PROTO_HDRS ${PROTOCOL_BUFFERS})
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROTO_SRCS} ${PROTO_HDRS})
+
+target_link_libraries(${PROJECT_NAME} ${PROTOBUF_LIBRARIES})

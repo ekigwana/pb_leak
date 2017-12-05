@@ -1,0 +1,17 @@
+external
+build
+remote_build
+*~
+*.kate-swp
+CMakeLists.txt.user
+docs
+uml
+.deps
+.lib
+.libs
+log
+.kdev4
+*.kdev4
+config
+*.pb.*
+doc/*
